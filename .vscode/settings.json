@@ -1,0 +1,17 @@
+{
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+        "source.fixAll.eslint": "explicit"
+    },
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "cSpell.language": "en,en-US,en-GB",
+    "editor.detectIndentation": false,
+    "eslint.validate": [
+        "javascript",
+        "typescript",
+        "typescriptreact",
+        "html"
+    ],
+    "eslint.alwaysShowStatus": true
+}

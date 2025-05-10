@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { WidgetHostComponent } from './widgets/components/widget-host/widget-host.component';
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    imports: [
+        RouterOutlet,
+        WidgetHostComponent,
+    ],
+    selector: 'app-root',
+    styleUrl: './app.component.scss',
+    templateUrl: './app.component.html',
 })
 export class AppComponent {
-  title = 'widgets-dashboard';
+    public title: string = 'widgets-dashboard';
 }
