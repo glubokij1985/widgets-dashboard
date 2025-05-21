@@ -1,0 +1,25 @@
+{
+    "apps": [
+        {
+            "name": "widgets-dashboard",
+            "cwd": ".",
+            "cmd": "npm run start",
+            "port": 4200,
+            "showLogs": true
+        },
+        {
+            "name": "news-widget",
+            "cwd": "../news-widget",
+            "cmd": "npm run start",
+            "port": 4201,
+            "showLogs": true
+        },
+        {
+            "name": "currency-widget",
+            "cwd": "../currency-widget",
+            "cmd": "npm run start",
+            "port": 4202,
+            "showLogs": true
+        }
+    ]
+}

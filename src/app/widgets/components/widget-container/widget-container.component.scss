@@ -2,7 +2,8 @@
     display: block;
     box-shadow: 0 0 8px 0 #bbb;
     border-radius: 30px;
-    height: calc(100vh / 3);
+    width: calc(100vw / 3);
+    height: calc(100vh - 20px);
     overflow: hidden;
     padding: 15px;
 }

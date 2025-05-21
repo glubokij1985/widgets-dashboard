@@ -16,6 +16,8 @@ import { WidgetContainerComponent } from '../widget-container/widget-container.c
 export class WidgetHostComponent implements AfterViewInit {
     public newsWidget: any;
 
+    public currencyWidget: any;
+
     public async ngAfterViewInit(): Promise<void> {
         const newsWidgetModule = await loadRemoteModule({
             exposedModule: './NewsWidgetComponent',
@@ -24,5 +26,13 @@ export class WidgetHostComponent implements AfterViewInit {
         });
 
         this.newsWidget = newsWidgetModule.NewsWidgetComponent;
+
+        const widgetModule = await loadRemoteModule({
+            exposedModule: './Widget',
+            remoteEntry: 'http://localhost:4202/remoteEntry.js',
+            type: 'module',
+        });
+
+        this.currencyWidget = widgetModule.Widget;
     }
 }
