@@ -1,6 +1,9 @@
-import { Component, ElementRef, Input, OnInit } from '@angular/core';
+import {
+    AfterViewInit, Component, ElementRef, Input, OnDestroy,
+    ViewChild
+} from '@angular/core';
 import * as React from 'react';
-import * as ReactDOM from 'react-dom/client';
+import { createRoot, Root } from 'react-dom/client';
 
 @Component({
     selector: 'react-wrapper',
@@ -8,18 +11,19 @@ import * as ReactDOM from 'react-dom/client';
     styleUrls: ['./react-wrapper.component.scss'],
     templateUrl: './react-wrapper.component.html',
 })
-export class ReactWrapperComponent implements OnInit {
-    @Input() public component: any;
+export class ReactWrapperComponent implements AfterViewInit, OnDestroy {
+    @ViewChild('container', { static: true }) public containerRef!: ElementRef;
 
-    @Input() public props: any;
+    @Input() public component!: React.ComponentType;
 
-    constructor(private _hostRef: ElementRef) { }
+    private _root!: Root;
 
-    public ngOnInit(): void {
-        if (this.component) {
-            const root = ReactDOM.createRoot(this._hostRef.nativeElement.firstChild);
+    public ngAfterViewInit(): void {
+        this._root = createRoot(this.containerRef.nativeElement);
+        this._root.render(React.createElement(this.component));
+    }
 
-            root.render(React.createElement(this.component, this.props));
-        }
+    public ngOnDestroy(): void {
+        this._root?.unmount();
     }
 }

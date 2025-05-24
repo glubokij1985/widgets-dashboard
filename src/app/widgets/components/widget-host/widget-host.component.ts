@@ -25,13 +25,14 @@ export class WidgetHostComponent implements AfterViewInit {
 
     @ViewChild('vc2', { read: ViewContainerRef, static: true }) public vc2!: ViewContainerRef;
 
-    public newsWidget: any;
-
-    public currencyWidget: any;
-
     private _envInjector: EnvironmentInjector = inject(EnvironmentInjector);
 
     public async ngAfterViewInit(): Promise<void> {
+        await this._loadNewsWidgetModule();
+        await this._loadCurrencyWidgetModule();
+    }
+
+    private async _loadNewsWidgetModule(): Promise<void> {
         const remoteNewsModule = await loadRemoteModule({
             exposedModule: './NewsWidgetComponent',
             remoteEntry: 'http://localhost:4201/remoteEntry.js',
@@ -42,16 +43,20 @@ export class WidgetHostComponent implements AfterViewInit {
         this.vc.createComponent(newsWidgetComponent, {
             environmentInjector: this._envInjector,
         });
+    }
 
+    private async _loadCurrencyWidgetModule(): Promise<void> {
         const remoteCurrencyModule = await loadRemoteModule({
             exposedModule: './Widget',
             remoteEntry: 'http://localhost:4202/remoteEntry.js',
-            type: 'module',
+            remoteName: 'currencyWidget',
+            type: 'script',
         });
-        const currencyWidgetComponent = remoteCurrencyModule.Widget;
+        const currencyWidget = remoteCurrencyModule.Widget;
+        const componentRef = this.vc2.createComponent(ReactWrapperComponent, {
+            injector: this._envInjector,
+        });
 
-        this.vc2.createComponent(currencyWidgetComponent, {
-            environmentInjector: this._envInjector,
-        });
+        componentRef.instance.component = currencyWidget;
     }
 }
