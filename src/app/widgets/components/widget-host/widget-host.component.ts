@@ -47,12 +47,12 @@ export class WidgetHostComponent implements AfterViewInit {
 
     private async _loadCurrencyWidgetModule(): Promise<void> {
         const remoteCurrencyModule = await loadRemoteModule({
-            exposedModule: './Widget',
+            exposedModule: './CurrencyWidget',
             remoteEntry: 'http://localhost:4202/remoteEntry.js',
             remoteName: 'currencyWidget',
             type: 'script',
         });
-        const currencyWidget = remoteCurrencyModule.Widget;
+        const currencyWidget = remoteCurrencyModule.CurrencyWidget;
         const componentRef = this.vc2.createComponent(ReactWrapperComponent, {
             injector: this._envInjector,
         });
